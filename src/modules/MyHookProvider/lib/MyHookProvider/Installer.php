@@ -29,7 +29,7 @@ class MyHookProvider_Installer extends Zikula_Installer
 
     public function uninstall()
     {
-        HookUtil::unRegisterHookProviderBundles($this->version);
+        HookUtil::unregisterHookProviderBundles($this->version);
         
         return true;
     }

@@ -18,7 +18,7 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      *
      * Subject is the object being viewed that we're attaching to.
      * args[id] is the id of the object.
-     * args[module] the module who notified of this event.
+     * args[caller] the module who notified of this event.
      *
      * @param Zikula_Event $event
      *
@@ -50,7 +50,7 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      *
      * Subject is the object being created/edited that we're attaching to.
      * args[id] Is the ID of the subject.
-     * args[module] the module who notified of this event.
+     * args[caller] the module who notified of this event.
      *
      * @param Zikula_Event $event
      *
@@ -92,7 +92,7 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      *
      * Subject is the object being created/edited that we're attaching to.
      * args[id] Is the ID of the subject.
-     * args[module] the module who notified of this event.
+     * args[caller] the module who notified of this event.
      *
      * @param Zikula_Event $event
      *
@@ -166,7 +166,7 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      *
      * Subject is the object being created/edited that we're attaching to.
      * args[id] Is the ID of the subject.
-     * args[module] the module who notified of this event.
+     * args[caller] the module who notified of this event.
      *
      * @param Zikula_Event $event
      *
@@ -183,7 +183,7 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      *
      * The subject should be the object that was deleted.
      * args[id] Is the is of the object
-     * args[module] is the name of who notified this event.
+     * args[caller] is the name of who notified this event.
      *
      * @param Zikula_Event $event
      *
