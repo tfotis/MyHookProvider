@@ -35,14 +35,14 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
         }
 
         // get view
-        $view = Zikula_View::getInstance('MyHookProvider');
+        $view = Zikula_View::getInstance($module);
 
         // do some stuff here like get data from database to show in template
         //
 
         // add this response to the event stack
-        $name = 'hookhandler.myhookprovider.ui.view';
-        $event->data[$name] = new Zikula_Response_DisplayHook($name, $view, 'myhookprovider_hook_mhp_ui_view.tpl');
+        $area = 'modulehook_area.myhookprovider.mhp';
+        $event->data[$area] = new Zikula_Response_DisplayHook($area, $view, 'myhookprovider_hook_mhp_ui_view.tpl');
     }
 
      /**
@@ -74,7 +74,7 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
         }
 
         // get view
-        $view = Zikula_View::getInstance('MyHookProvider');
+        $view = Zikula_View::getInstance($module);
 
         // assign id to template
         $view->assign('id', $id);
@@ -83,8 +83,8 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
         //
 
         // add this response to the event stack
-        $name = 'hookhandler.myhookprovider.ui.edit';
-        $event->data[$name] = new Zikula_Response_DisplayHook($name, $view, 'myhookprovider_hook_mhp_ui_edit.tpl');
+        $area = 'modulehook_area.myhookprovider.mhp';
+        $event->data[$area] = new Zikula_Response_DisplayHook($area, $view, 'myhookprovider_hook_mhp_ui_edit.tpl');
     }
 
     /**
@@ -109,14 +109,14 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
         }
 
         // get view
-        $view = Zikula_View::getInstance('MyHookProvider');
+        $view = Zikula_View::getInstance($module);
 
         // do some stuff here like get data from database to show in template
         //
 
         // add this response to the event stack
-        $name = 'hookhandler.myhookprovider.ui.delete';
-        $event->data[$name] = new Zikula_Response_DisplayHook($name, $view, 'myhookprovider_hook_mhp_ui_delete.tpl');
+        $area = 'modulehook_area.myhookprovider.mhp';
+        $event->data[$area] = new Zikula_Response_DisplayHook($area, $view, 'myhookprovider_hook_mhp_ui_delete.tpl');
     }
 
     /**
