@@ -14,6 +14,24 @@
 class MyHookProvider_HookHandlers extends Zikula_HookHandler
 {
     /**
+     * Zikula_View instance
+     * @var object
+     */
+    private $view;
+
+    /**
+     * Constructor.
+     *
+     * @param Zikula_ServiceManager $serviceManager ServiceManager.
+     *
+     * @throws InvalidArgumentException If $this->eventNames is invalid.
+     */
+    public function __construct(Zikula_ServiceManager $serviceManager) {
+        parent::__construct($serviceManager);
+        $this->view = Zikula_View::getInstance("MyHookProvider");
+    }
+
+    /**
      * Display hook for view.
      *
      * Subject is the object being viewed that we're attaching to.
@@ -26,23 +44,18 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      */
     public function ui_view(Zikula_Event $event)
     {
-        // get data from $event
-        $module = $event['caller'];
 
         // Security check
-        if (!SecurityUtil::checkPermission('MyHookProvider::', $module.'::', ACCESS_READ)) {
+        if (!SecurityUtil::checkPermission('MyHookProvider::', '::', ACCESS_READ)) {
             return;
         }
-
-        // get view
-        $view = Zikula_View::getInstance($module);
 
         // do some stuff here like get data from database to show in template
         //
 
         // add this response to the event stack
         $area = 'modulehook_area.myhookprovider.mhp';
-        $event->data[$area] = new Zikula_Response_DisplayHook($area, $view, 'myhookprovider_hook_mhp_ui_view.tpl');
+        $event->data[$area] = new Zikula_Response_DisplayHook($area, $this->view, 'myhookprovider_hook_mhp_ui_view.tpl');
     }
 
      /**
@@ -59,7 +72,6 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
     public function ui_edit(Zikula_Event $event)
     {
         // get data from $event
-        $module = $event['caller'];
         $id = $event['id'];
 
         if (!$id) {
@@ -69,12 +81,9 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
         }
 
         // Security check
-        if (!SecurityUtil::checkPermission('MyHookProvider::', $module.'::', $access_type)) {
+        if (!SecurityUtil::checkPermission('MyHookProvider::', '::', $access_type)) {
             return;
         }
-
-        // get view
-        $view = Zikula_View::getInstance($module);
 
         // assign id to template
         $view->assign('id', $id);
@@ -84,7 +93,7 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
 
         // add this response to the event stack
         $area = 'modulehook_area.myhookprovider.mhp';
-        $event->data[$area] = new Zikula_Response_DisplayHook($area, $view, 'myhookprovider_hook_mhp_ui_edit.tpl');
+        $event->data[$area] = new Zikula_Response_DisplayHook($area, $this->view, 'myhookprovider_hook_mhp_ui_edit.tpl');
     }
 
     /**
@@ -100,23 +109,35 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      */
     public function ui_delete(Zikula_Event $event)
     {
-        // get data from $event
-        $module = $event['caller'];
-
         // Security check
-        if (!SecurityUtil::checkPermission('MyHookProvider::', $module.'::', ACCESS_DELETE)) {
+        if (!SecurityUtil::checkPermission('MyHookProvider::', '::', ACCESS_DELETE)) {
             return;
         }
-
-        // get view
-        $view = Zikula_View::getInstance($module);
 
         // do some stuff here like get data from database to show in template
         //
 
         // add this response to the event stack
         $area = 'modulehook_area.myhookprovider.mhp';
-        $event->data[$area] = new Zikula_Response_DisplayHook($area, $view, 'myhookprovider_hook_mhp_ui_delete.tpl');
+        $event->data[$area] = new Zikula_Response_DisplayHook($area, $this->view, 'myhookprovider_hook_mhp_ui_delete.tpl');
+    }
+
+    /**
+     * Filter hook for view
+     *
+     * Subject is the object being viewed that we're attaching to.
+     * args[id] is the id of the object.
+     * args[caller] the module who notified of this event.
+     *
+     * @param Zikula_Event $event
+     *
+     * @return void
+     */
+    public function ui_filter(Zikula_Event $event)
+    {
+        $data = $event->getData();
+        $data .= "<br />" . __('This data has been transformed by adding this text.');
+        $event->setData($data);
     }
 
     /**
