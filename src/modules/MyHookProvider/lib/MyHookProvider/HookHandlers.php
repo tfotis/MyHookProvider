@@ -20,14 +20,12 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
     private $view;
 
     /**
-     * Constructor.
+     * Post constructor hook.
      *
-     * @param Zikula_ServiceManager $serviceManager ServiceManager.
-     *
-     * @throws InvalidArgumentException If $this->eventNames is invalid.
+     * @return void
      */
-    public function __construct(Zikula_ServiceManager $serviceManager) {
-        parent::__construct($serviceManager);
+    public function setup()
+    {
         $this->view = Zikula_View::getInstance("MyHookProvider");
     }
 
@@ -44,7 +42,6 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      */
     public function ui_view(Zikula_Event $event)
     {
-
         // Security check
         if (!SecurityUtil::checkPermission('MyHookProvider::', '::', ACCESS_READ)) {
             return;
@@ -86,7 +83,7 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
         }
 
         // assign id to template
-        $view->assign('id', $id);
+        $this->view->assign('id', $id);
 
         // show some data here or plain form or form with highlighted fields here if it didn't pass validation
         //
