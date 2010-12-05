@@ -49,8 +49,8 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
 
         // do some stuff here like get data from database to show in template
         // our example doesn't have any data to fetch, so we will create a random number to show :)
-        $mhs_data = array('dummydata' => rand(1,9));
-        $this->view->assign('mhs_data', $mhs_data);
+        $mhp_data = array('dummydata' => rand(1,9));
+        $this->view->assign('mhp_data', $mhp_data);
 
         // add this response to the event stack
         $area = 'modulehook_area.myhookprovider.mhp';
@@ -90,21 +90,21 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
             // or fill the form with existing data
             if (!$id) {
                 // this is a create action so create a new empty object for editing
-                $mhs_data = array('dummydata' => '');
+                $mhp_data = array('dummydata' => '');
             } else {
                 // this is an edit action so we probably need to get the data from the DB for editing
                 // for this example however, we don't have any data stored in db, so display something random :)
-                $mhs_data = array('dummydata' => rand(1,9));
+                $mhp_data = array('dummydata' => rand(1,9));
             }
         } else {
             // this is a re-entry because the form didn't validate.
             // We need to gather the input from the form and render display
             // get the input from the form (this was populated by the validation hook).
-            $mhs_data = $this->validation->getObject();
+            $mhp_data = $this->validation->getObject();
         }
 
         // assign the hook data to the template
-        $this->view->assign('mhs_data', $mhs_data);
+        $this->view->assign('mhp_data', $mhp_data);
 
         // and also assign the id
         $this->view->assign('id', $id);
@@ -134,8 +134,8 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
 
         // do some stuff here like get data from database to show in template
         // our example doesn't have any data to fetch, so we will create a random number to show :)
-        $mhs_data = array('dummydata' => rand(1,9));
-        $this->view->assign('mhs_data', $mhs_data);
+        $mhp_data = array('dummydata' => rand(1,9));
+        $this->view->assign('mhp_data', $mhp_data);
         
         // add this response to the event stack
         $area = 'modulehook_area.myhookprovider.mhp';
@@ -177,15 +177,15 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
     public function validate_edit(Zikula_Event $event)
     {
         // get data from post
-        $mhs_data = FormUtil::getPassedValue('mhs_data', null, 'POST');
+        $mhp_data = FormUtil::getPassedValue('mhp_data', null, 'POST');
 
         // create a new hook validation object and assign it to $this->validation
-        $this->validation = new Zikula_Provider_HookValidation('mhs_data', $mhs_data);
+        $this->validation = new Zikula_Provider_HookValidation('mhp_data', $mhp_data);
 
         // do the actual validation
         // for this example, the validation passes if our dummydata is a number between 1 and 9
         // otherwise the validation fais
-        if (!is_numeric($mhs_data['dummydata']) || ((int)$mhs_data['dummydata'] < 1 || (int)$mhs_data['dummydata'] > 9)) {
+        if (!is_numeric($mhp_data['dummydata']) || ((int)$mhp_data['dummydata'] < 1 || (int)$mhp_data['dummydata'] > 9)) {
             $this->validation->addError('dummydata', 'You must fill a number between 1 and 9.');
         }
       
@@ -240,7 +240,7 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
         // and perform necessary action depending on insert or update
         // this example does not store any data, but if it would,
         // then we could do something like this
-        $mhs_data = $this->validation->getObject();
+        $mhp_data = $this->validation->getObject();
 
         if (!$event['id']) {
             // new so do an INSERT
