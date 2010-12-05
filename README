@@ -1,0 +1,9 @@
+MyHookProvider
+==============
+
+The purpose of this module is to serve as an example of how the new hook system works in Zikula 1.3
+
+What this hook does is display an input field in the create/edit form of your module. The filled data in this input are validated and a response is logged. The response can then be used by your module to respond accordingly.
+
+Check also the other example module "MyHookSubscriber" to see how the new hook system is used.
+
