@@ -48,7 +48,9 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
         }
 
         // do some stuff here like get data from database to show in template
-        //
+        // our example doesn't have any data to fetch, so we will create a random number to show :)
+        $mhs_data = array('dummydata' => rand(1,9));
+        $this->view->assign('mhs_data', $mhs_data);
 
         // add this response to the event stack
         $area = 'modulehook_area.myhookprovider.mhp';
@@ -82,12 +84,31 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
             return;
         }
 
-        // assign id to template
+        // if validation object does not exist, this is the first time display of the create/edit form.
+        if (!$this->validation) {
+            // either display an empty form,
+            // or fill the form with existing data
+            if (!$id) {
+                // this is a create action so create a new empty object for editing
+                $mhs_data = array('dummydata' => '');
+            } else {
+                // this is an edit action so we probably need to get the data from the DB for editing
+                // for this example however, we don't have any data stored in db, so display something random :)
+                $mhs_data = array('dummydata' => rand(1,9));
+            }
+        } else {
+            // this is a re-entry because the form didn't validate.
+            // We need to gather the input from the form and render display
+            // get the input from the form (this was populated by the validation hook).
+            $mhs_data = $this->validation->getObject();
+        }
+
+        // assign the hook data to the template
+        $this->view->assign('mhs_data', $mhs_data);
+
+        // and also assign the id
         $this->view->assign('id', $id);
-
-        // show some data here or plain form or form with highlighted fields here if it didn't pass validation
-        //
-
+       
         // add this response to the event stack
         $area = 'modulehook_area.myhookprovider.mhp';
         $event->data[$area] = new Zikula_Response_DisplayHook($area, $this->view, 'myhookprovider_hook_mhp_ui_edit.tpl');
@@ -112,8 +133,10 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
         }
 
         // do some stuff here like get data from database to show in template
-        //
-
+        // our example doesn't have any data to fetch, so we will create a random number to show :)
+        $mhs_data = array('dummydata' => rand(1,9));
+        $this->view->assign('mhs_data', $mhs_data);
+        
         // add this response to the event stack
         $area = 'modulehook_area.myhookprovider.mhp';
         $event->data[$area] = new Zikula_Response_DisplayHook($area, $this->view, 'myhookprovider_hook_mhp_ui_delete.tpl');
@@ -153,8 +176,20 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      */
     public function validate_edit(Zikula_Event $event)
     {
-        LogUtil::registerStatus($this->__('validate_edit method completed.'));
-        return;
+        // get data from post
+        $mhs_data = FormUtil::getPassedValue('mhs_data', null, 'POST');
+
+        // create a new hook validation object and assign it to $this->validation
+        $this->validation = new Zikula_Provider_HookValidation('mhs_data', $mhs_data);
+
+        // do the actual validation
+        // for this example, the validation passes if our dummydata is a number between 1 and 9
+        // otherwise the validation fais
+        if (!is_numeric($mhs_data['dummydata']) || ((int)$mhs_data['dummydata'] < 1 || (int)$mhs_data['dummydata'] > 9)) {
+            $this->validation->addError('dummydata', 'You must fill a number between 1 and 9.');
+        }
+      
+        $event->data->set('hookhandler.myhookprovider.ui.edit', $this->validation);
     }
 
     /**
@@ -173,7 +208,10 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      */
     public function validate_delete(Zikula_Event $event)
     {
-        LogUtil::registerStatus($this->__('validate_delete method completed.'));
+        // nothing to do here really, just return
+        // if however i wanted to check for something, i would do it like the
+        // validate_edit function!!! [make sure you check ui_edit and process_edit also]
+
         return;
     }
 
@@ -194,9 +232,21 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      */
     public function process_edit(Zikula_Event $event)
     {
-        LogUtil::registerStatus($this->__('process_edit method completed.'));
-        // check for validation (if we have any)
-        // and then do insert or update depending on action
+        // check for validation here
+        if (!$this->validation) {
+            return;
+        }
+        
+        // and perform necessary action depending on insert or update
+        // this example does not store any data, but if it would,
+        // then we could do something like this
+        $mhs_data = $this->validation->getObject();
+
+        if (!$event['id']) {
+            // new so do an INSERT
+        } else {
+            // existing so do an UPDATE
+        }
     }
 
     /**
@@ -212,8 +262,7 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      */
     public function process_delete(Zikula_Event $event)
     {
-        LogUtil::registerStatus($this->__('process_delete method completed.'));
-        // check for validation (if we have any)
-        // and then do deletion
+        // this example does not have an data stored in database to delete
+        // however, if i had any, i would execute a db call here to delete them
     }
 }
