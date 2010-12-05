@@ -133,7 +133,7 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
     public function ui_filter(Zikula_Event $event)
     {
         $data = $event->getData();
-        $data .= "<br />" . __('This data has been transformed by adding this text.');
+        $data .= "<br />" . $this->__('This data has been transformed by adding this text.');
         $event->setData($data);
     }
 
@@ -153,6 +153,7 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      */
     public function validate_edit(Zikula_Event $event)
     {
+        LogUtil::registerStatus($this->__('validate_edit method completed.'));
         return;
     }
 
@@ -172,6 +173,7 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      */
     public function validate_delete(Zikula_Event $event)
     {
+        LogUtil::registerStatus($this->__('validate_delete method completed.'));
         return;
     }
 
@@ -192,6 +194,7 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      */
     public function process_edit(Zikula_Event $event)
     {
+        LogUtil::registerStatus($this->__('process_edit method completed.'));
         // check for validation (if we have any)
         // and then do insert or update depending on action
     }
@@ -209,6 +212,7 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
      */
     public function process_delete(Zikula_Event $event)
     {
+        LogUtil::registerStatus($this->__('process_delete method completed.'));
         // check for validation (if we have any)
         // and then do deletion
     }
