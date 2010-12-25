@@ -74,9 +74,9 @@ class MyHookProvider_HookHandlers extends Zikula_HookHandler
         $id = $event['id'];
 
         if (!$id) {
-            $access_type = ACCESS_EDIT;
-        } else {
             $access_type = ACCESS_ADD;
+        } else {
+            $access_type = ACCESS_EDIT;
         }
 
         // Security check
