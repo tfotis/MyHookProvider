@@ -11,7 +11,7 @@
  * information regarding copyright and licensing.
  */
 
-class MyHookProvider_Controller_User extends Zikula_Controller
+class MyHookProvider_Controller_User extends Zikula_AbstractController
 {
     public function main()
     {

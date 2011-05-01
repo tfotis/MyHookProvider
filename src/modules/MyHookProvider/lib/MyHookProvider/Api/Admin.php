@@ -11,7 +11,7 @@
  * information regarding copyright and licensing.
  */
 
-class MyHookProvider_Api_Admin extends Zikula_Api
+class MyHookProvider_Api_Admin extends Zikula_AbstractApi
 {
     // get available admin panel links
     public function getlinks($args)

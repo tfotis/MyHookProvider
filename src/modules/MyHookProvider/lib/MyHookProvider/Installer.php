@@ -11,7 +11,7 @@
  * information regarding copyright and licensing.
  */
 
-class MyHookProvider_Installer extends Zikula_Installer
+class MyHookProvider_Installer extends Zikula_AbstractInstaller
 {
     public function install()
     {
@@ -30,7 +30,7 @@ class MyHookProvider_Installer extends Zikula_Installer
     public function uninstall()
     {
         HookUtil::unregisterHookProviderBundles($this->version);
-        
+
         return true;
     }
 }
