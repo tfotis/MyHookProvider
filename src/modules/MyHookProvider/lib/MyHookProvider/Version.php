@@ -27,7 +27,7 @@ class MyHookProvider_Version extends Zikula_AbstractVersion
 
     protected function setupHookBundles()
     {
-         $bundle = new Zikula_Version_HookProviderBundle('modulehook_area.myhookprovider.mhp', __('MyHookProvider Hook Handlers'));
+         $bundle = new Zikula_HookManager_ProviderBundle($this->name, 'modulehook_area.myhookprovider.mhp', __('MyHookProvider Hook Handlers'));
          $bundle->addHook('hookhandler.myhookprovider.ui.view', 'ui.view', 'MyHookProvider_HookHandlers', 'ui_view', 'myhookprovider.service', 10);
          $bundle->addHook('hookhandler.myhookprovider.ui.edit', 'ui.edit', 'MyHookProvider_HookHandlers', 'ui_edit', 'myhookprovider.service', 10);
          $bundle->addHook('hookhandler.myhookprovider.ui.delete', 'ui.delete', 'MyHookProvider_HookHandlers', 'ui_delete', 'myhookprovider.service', 10);
@@ -37,7 +37,7 @@ class MyHookProvider_Version extends Zikula_AbstractVersion
          $bundle->addHook('hookhandler.myhookprovider.process.delete', 'process.delete', 'MyHookProvider_HookHandlers', 'process_delete', 'myhookprovider.service', 10);
          $this->registerHookProviderBundle($bundle);
 
-         $bundle = new Zikula_Version_HookProviderBundle('modulehook_area.myhookprovider.mhpfilter', __('MyHookProvider Hook Handler Filter'));
+         $bundle = new Zikula_HookManager_ProviderBundle($this->name, 'modulehook_area.myhookprovider.mhpfilter', __('MyHookProvider Hook Handler Filter'));
          $bundle->addHook('hookhandler.myhookprovider.ui.filter', 'ui.filter', 'MyHookProvider_HookHandlers', 'ui_filter', 'myhookprovider.service', 10);
          $this->registerHookProviderBundle($bundle);
 

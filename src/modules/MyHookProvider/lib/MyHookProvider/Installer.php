@@ -15,14 +15,14 @@ class MyHookProvider_Installer extends Zikula_AbstractInstaller
 {
     public function install()
     {
-        HookUtil::registerHookProviderBundles($this->version);
+        HookUtil::registerProviderBundles($this->version->getHookProviderBundles());
 
         return true;
     }
 
     public function upgrade($oldversion)
     {
-        HookUtil::registerHookProviderBundles($this->version);
+        HookUtil::registerProviderBundles($this->version->getHookProviderBundles());
 
         return true;
     }
