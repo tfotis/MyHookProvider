@@ -11,11 +11,11 @@
  * information regarding copyright and licensing.
  */
 
-class MyHookProvider_HookHandlers extends Zikula_AbstractHookHandler
+class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
 {
     /**
      * Zikula_View instance
-     * 
+     *
      * @var Zikula_View
      */
     private $view;
