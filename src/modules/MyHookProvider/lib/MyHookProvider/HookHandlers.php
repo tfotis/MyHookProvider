@@ -41,7 +41,7 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
      *
      * @return void
      */
-    public function ui_view(Zikula_Hook $hook)
+    public function ui_view(Zikula_DisplayHook $hook)
     {
         // Security check
         if (!SecurityUtil::checkPermission('MyHookProvider::', '::', ACCESS_READ)) {
@@ -54,8 +54,8 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
         $this->view->assign('mhp_data', $mhp_data);
 
         // add this response to the event stack
-        $area = 'modulehook_area.myhookprovider.mhp';
-        $hook->data[$area] = new Zikula_Response_DisplayHook($area, $this->view, 'myhookprovider_hook_mhp_ui_view.tpl');
+        $response = new Zikula_Response_DisplayHook('modulehook_area.myhookprovider.mhp', $this->view, 'myhookprovider_hook_mhp_ui_view.tpl');
+        $hook->setResponse($response);
     }
 
      /**
@@ -69,10 +69,10 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
      *
      * @return void
      */
-    public function ui_edit(Zikula_Hook $hook)
+    public function ui_edit(Zikula_DisplayHook $hook)
     {
         // get data from $event
-        $id = $hook['id'];
+        $id = $hook->getId();
 
         if (!$id) {
             $access_type = ACCESS_ADD;
@@ -111,8 +111,8 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
         $this->view->assign('id', $id);
 
         // add this response to the event stack
-        $area = 'modulehook_area.myhookprovider.mhp';
-        $hook->data[$area] = new Zikula_Response_DisplayHook($area, $this->view, 'myhookprovider_hook_mhp_ui_edit.tpl');
+        $response = new Zikula_Response_DisplayHook('modulehook_area.myhookprovider.mhp', $this->view, 'myhookprovider_hook_mhp_ui_edit.tpl');
+        $hook->setResponse($response);
     }
 
     /**
@@ -126,7 +126,7 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
      *
      * @return void
      */
-    public function ui_delete(Zikula_Hook $hook)
+    public function ui_delete(Zikula_DisplayHook $hook)
     {
         // Security check
         if (!SecurityUtil::checkPermission('MyHookProvider::', '::', ACCESS_DELETE)) {
@@ -139,8 +139,8 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
         $this->view->assign('mhp_data', $mhp_data);
 
         // add this response to the event stack
-        $area = 'modulehook_area.myhookprovider.mhp';
-        $hook->data[$area] = new Zikula_Response_DisplayHook($area, $this->view, 'myhookprovider_hook_mhp_ui_delete.tpl');
+        $response = new Zikula_Response_DisplayHook('modulehook_area.myhookprovider.mhp', $this->view, 'myhookprovider_hook_mhp_ui_delete.tpl');
+        $hook->setResponse($response);
     }
 
     /**
@@ -154,7 +154,7 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
      *
      * @return void
      */
-    public function ui_filter(Zikula_Hook $hook)
+    public function ui_filter(Zikula_FilterHook $hook)
     {
         $data = $hook->getData();
         $data .= "<br />" . $this->__('This data has been transformed by adding this text.');
@@ -175,7 +175,7 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
      *
      * @return void
      */
-    public function validate_edit(Zikula_Hook $hook)
+    public function validate_edit(Zikula_ValidationHook $hook)
     {
         // get data from post
         $mhp_data = FormUtil::getPassedValue('mhp_data', null, 'POST');
@@ -190,7 +190,7 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
             $this->validation->addError('dummydata', 'You must fill a number between 1 and 9.');
         }
 
-        $hook->data->set('hookhandler.myhookprovider.ui.edit', $this->validation);
+        $hook->setValidator('hookhandler.myhookprovider.ui.edit', $this->validation);
     }
 
     /**
@@ -203,11 +203,11 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
      * so the information is available to the ui_edit method if validation fails,
      * and so the process_* can write the validated data to the database.
      *
-     * @param Zikula_Hook $hook
+     * @param Zikula_ValidationHook $hook
      *
      * @return void
      */
-    public function validate_delete(Zikula_Hook $hook)
+    public function validate_delete(Zikula_ValidationHook $hook)
     {
         // nothing to do here really, just return
         // if however i wanted to check for something, i would do it like the
@@ -231,7 +231,7 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
      *
      * @return void
      */
-    public function process_edit(Zikula_Hook $hook)
+    public function process_edit(Zikula_ProcessHook $hook)
     {
         // check for validation here
         if (!$this->validation) {
@@ -243,7 +243,7 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
         // then we could do something like this
         $mhp_data = $this->validation->getObject();
 
-        if (!$hook['id']) {
+        if (!$hook->getId()) {
             // new so do an INSERT
         } else {
             // existing so do an UPDATE
@@ -261,7 +261,7 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
      *
      * @return void
      */
-    public function process_delete(Zikula_Hook $hook)
+    public function process_delete(Zikula_ProcessHook $hook)
     {
         // this example does not have an data stored in database to delete
         // however, if i had any, i would execute a db call here to delete them
