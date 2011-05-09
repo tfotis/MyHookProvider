@@ -167,7 +167,7 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
      * The property $event->data is an instance of Zikula_Collection_HookValidationProviders
      * Use the $event->data->set() method to log the validation response.
      *
-     * This method populates this hookhandler object with a Zikula_Provider_HookValidation
+     * This method populates this hookhandler object with a Zikula_Hook_ValidationReponse
      * so the information is available to the ui_edit method if validation fails,
      * and so the process_* can write the validated data to the database.
      *
@@ -181,7 +181,7 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
         $mhp_data = FormUtil::getPassedValue('mhp_data', null, 'POST');
 
         // create a new hook validation object and assign it to $this->validation
-        $this->validation = new Zikula_Provider_HookValidation('mhp_data', $mhp_data);
+        $this->validation = new Zikula_Hook_ValidationReponse('mhp_data', $mhp_data);
 
         // do the actual validation
         // for this example, the validation passes if our dummydata is a number between 1 and 9
@@ -199,7 +199,7 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
      * The property $event->data is an instance of Zikula_Collection_HookValidationProviders
      * Use the $event->data->set() method to log the validation response.
      *
-     * This method populates this hookhandler object with a Zikula_Provider_HookValidation
+     * This method populates this hookhandler object with a Zikula_Hook_ValidationReponse
      * so the information is available to the ui_edit method if validation fails,
      * and so the process_* can write the validated data to the database.
      *
