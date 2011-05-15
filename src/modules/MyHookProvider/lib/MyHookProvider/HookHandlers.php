@@ -54,7 +54,7 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
         $this->view->assign('mhp_data', $mhp_data);
 
         // add this response to the event stack
-        $response = new Zikula_Response_DisplayHook('modulehook_area.myhookprovider.mhp', $this->view, 'myhookprovider_hook_mhp_ui_view.tpl');
+        $response = new Zikula_Response_DisplayHook('provider_area.ui.myhookprovider.mhp', $this->view, 'myhookprovider_hook_mhp_ui_view.tpl');
         $hook->setResponse($response);
     }
 
@@ -111,7 +111,7 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
         $this->view->assign('id', $id);
 
         // add this response to the event stack
-        $response = new Zikula_Response_DisplayHook('modulehook_area.myhookprovider.mhp', $this->view, 'myhookprovider_hook_mhp_ui_edit.tpl');
+        $response = new Zikula_Response_DisplayHook('provider_area.ui.myhookprovider.mhp', $this->view, 'myhookprovider_hook_mhp_ui_edit.tpl');
         $hook->setResponse($response);
     }
 
@@ -139,7 +139,7 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
         $this->view->assign('mhp_data', $mhp_data);
 
         // add this response to the event stack
-        $response = new Zikula_Response_DisplayHook('modulehook_area.myhookprovider.mhp', $this->view, 'myhookprovider_hook_mhp_ui_delete.tpl');
+        $response = new Zikula_Response_DisplayHook('provider_area.ui.myhookprovider.mhp', $this->view, 'myhookprovider_hook_mhp_ui_delete.tpl');
         $hook->setResponse($response);
     }
 
