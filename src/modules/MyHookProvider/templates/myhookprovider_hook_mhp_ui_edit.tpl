@@ -1,7 +1,7 @@
 <fieldset>
 <legend>MyHookProvider Data</legend>
 
-<div>This template is shown for handler 'hookhandler.myhookprovider.ui.edit' and area 'mhp'.</div>
+<div>This template is shown for handler 'hookhandler.myhookprovider.form_edit' and area 'mhp'.</div>
 
 <div>
 {if $id}

@@ -162,7 +162,7 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
     }
 
     /**
-     * validation handler for validate.edit hook type.
+     * validation handler for validate_edit hook type.
      *
      * The property $event->data is an instance of Zikula_Collection_HookValidationProviders
      * Use the $event->data->set() method to log the validation response.
@@ -190,11 +190,11 @@ class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
             $this->validation->addError('dummydata', 'You must fill a number between 1 and 9.');
         }
 
-        $hook->setValidator('hookhandler.myhookprovider.ui.edit', $this->validation);
+        $hook->setValidator('provider.myhookprovider.ui_hooks.mhp', $this->validation);
     }
 
     /**
-     * validation handler for validate.delete hook type.
+     * validation handler for validate_delete hook type.
      *
      * The property $event->data is an instance of Zikula_Collection_HookValidationProviders
      * Use the $event->data->set() method to log the validation response.
