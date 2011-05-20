@@ -11,7 +11,7 @@
  * information regarding copyright and licensing.
  */
 
-class MyHookProvider_HookHandlers extends Zikula_Hook_AbstractHandler
+class MyHookProvider_HookHandler_Mhp extends Zikula_Hook_AbstractHandler
 {
     /**
      * Zikula_View instance
