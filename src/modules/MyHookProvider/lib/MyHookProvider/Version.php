@@ -38,7 +38,7 @@ class MyHookProvider_Version extends Zikula_AbstractVersion
          $this->registerHookProviderBundle($bundle);
 
          $bundle = new Zikula_HookManager_ProviderBundle($this->name, 'provider.myhookprovider.filter_hooks.mhpfilter', 'filter_hooks', __('MyHookProvider Hook Handler Filter'));
-         $bundle->addStaticHandler('filter', 'MyHookProvider_HookHandler_Mhpfilter', 'filter', true);
+         $bundle->addStaticHandler('filter', 'MyHookProvider_HookHandler_Mhp', 'ui_filter', true);
          $this->registerHookProviderBundle($bundle);
 
          //... provide more area bundles if necessary
