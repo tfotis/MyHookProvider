@@ -154,7 +154,7 @@ class MyHookProvider_HookHandler_Mhp extends Zikula_Hook_AbstractHandler
      *
      * @return void
      */
-    public function ui_filter(Zikula_FilterHook $hook)
+    public static function ui_filter(Zikula_FilterHook $hook)
     {
         $data = $hook->getData();
         $data .= "<br />" . $this->__('This data has been transformed by adding this text.');
